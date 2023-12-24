@@ -33,15 +33,20 @@ while True:
         fps = 1 / (curFrame - prevFrame)
         prevFrame = curFrame
         cv2.putText(frame, "FPS: {:.2f}".format(fps), (8, 20), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 1, cv2.LINE_AA)
-
+        
         # Perform detection on the frame with YuNet
         _, faces = detector.detect(frame)
 
         # Draw rectangles
-        if faces is not None: 
+        if faces is not None:
             for face in faces:
                 # bouding box
                 box = list(map(int, face[:4]))
+                for i, val in enumerate(box):
+                    if val < 0:
+                        box[i] = 0
+
+                # Define bounding box rectangle
                 color = (0, 255, 0)
                 cv2.rectangle(frame, box, color, 1)
 
