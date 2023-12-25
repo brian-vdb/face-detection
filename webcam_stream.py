@@ -7,8 +7,9 @@ WIDTH = 640
 HEIGHT = 480
 
 # Initialize the YuNet model
-detector = cv2.FaceDetectorYN.create(
-    model=      os.path.join('models', 'face_detection_yunet_2023mar.onnx'),
+yunet_model_path = os.path.join('models', 'face_detection_yunet_2023mar.onnx')
+yunet = cv2.FaceDetectorYN.create(
+    model=      yunet_model_path,
     config=     "",
     input_size= (WIDTH, HEIGHT)
 )
@@ -38,7 +39,7 @@ while True:
         cv2.putText(frame, "FPS: {:.2f}".format(fps), (8, 20), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 1, cv2.LINE_AA)
         
         # Perform detection on the frame with YuNet
-        _, faces = detector.detect(frame)
+        _, faces = yunet.detect(frame)
 
         # Draw rectangles
         if faces is not None:
