@@ -17,8 +17,11 @@ detector = cv2.FaceDetectorYN.create(
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 # Set the stream properties
+codec = 0x47504A4D  # MJPG
+cap.set(cv2.CAP_PROP_FOURCC, codec)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
+cap.set(cv2.CAP_PROP_FPS, 60.0)
 
 # Initialize FPS Counter
 prevFrame = time.time()
